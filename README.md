@@ -47,14 +47,14 @@ docker compose down --rmi all
 ### Scale the TaskManagers Up or Down in the Flink Cluster
 
 ```bash
-# Scale Up to 3 TaskManagers in the Cluster
+# Scale Up to 3 TaskManagers in the Cluster (default: 1)
 docker compose up -d --scale taskmanager=3
 ```
 
 ### Adjust the Number of Task Slots for Each TaskManager when the Flink Cluster is launched
 
 ```bash
-# Adjust to 1 Task Slot per TaskManager
+# Adjust to 1 Task Slot per TaskManager (default: 2)
 EACH_TASK_SLOTS=1 docker compose up -d
 ```
 
