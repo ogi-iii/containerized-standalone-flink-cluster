@@ -46,7 +46,7 @@ docker compose down --rmi all
 
 You have 3 options to submit your jar file as flink job.
 
-### [1st Option] Put on the Local Mount Point
+### 1st Option: Put on the Local Mount Point
 
 After putting your jar file on the local mount point of `./data/flink/jobs/`, run as Flink job using the commands in the JobManager container.
 
@@ -59,7 +59,7 @@ JOBMANAGER_CONTAINER=$(docker ps --filter name=jobmanager --format={{.ID}})
 docker container exec -it $JOBMANAGER_CONTAINER flink run /data/flink/jobs/your-flink-job.jar
 ```
 
-### [2nd Option] Post to the Flink REST API
+### 2nd Option: Post to the Flink REST API
 
 By Posting your jar file to the Flink REST API, You can run as Flink job through HTTP.
 
@@ -77,7 +77,7 @@ curl -X GET http://localhost:8081/jars/ | jq -r '.files[].id' | grep flink-job.j
 curl -X POST http://localhost:8081/jars/{jar-id}/run
 ```
 
-### [3rd Option] Upload to the Flink Web Dashboard
+### 3rd Option: Upload to the Flink Web Dashboard
 
 1. Access the submit page of Apache Flink Dashboard.
 
