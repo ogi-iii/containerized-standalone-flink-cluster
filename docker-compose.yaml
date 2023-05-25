@@ -9,6 +9,8 @@ services:
       - |
         FLINK_PROPERTIES=
         jobmanager.rpc.address: jobmanager
+    volumes:
+      - ./data/flink/jobs:/data/flink/jobs
 
   taskmanager:
     image: flink:1.17
