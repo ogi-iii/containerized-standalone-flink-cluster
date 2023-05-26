@@ -1,4 +1,5 @@
 # Containerized Standalone Flink Cluster
+
 This is the containerized standalone Apache Flink Cluster.
 
 ## Requirements
@@ -32,7 +33,7 @@ docker container exec -it $JOBMANAGER_CONTAINER flink run examples/batch/WordCou
 
 Access the Apache Flink Dashboard to check the result of the submitted job execution
 
-- URL: <http://localhost:8081/>
+- URL: <http://127.0.0.1:8081/>
 
 ### 4. Shutdown Flink Cluster
 
@@ -51,10 +52,10 @@ You have 3 options to submit your jar file as flink job.
 After putting your jar file on the local mount point of `./data/flink/jobs/`, run as Flink job using the commands in the JobManager container.
 
 ```bash
-# Put your jar file into the local mount point.
+# Put your jar file into the local mount point
 mv /path/to/your-flink-job.jar ./data/flink/jobs/
 
-# Run as Flink job by following commands.
+# Run as Flink job by following commands
 JOBMANAGER_CONTAINER=$(docker ps --filter name=jobmanager --format={{.ID}})
 docker container exec -it $JOBMANAGER_CONTAINER flink run /data/flink/jobs/your-flink-job.jar
 ```
@@ -65,23 +66,23 @@ By Posting your jar file to the Flink REST API, You can run as Flink job through
 
 ```bash
 # Upload your jar file
-curl -X POST -H "Expect:" -F "jarfile=@/path/to/flink-job.jar" http://localhost:8081/jars/upload
+curl -X POST -H "Expect:" -F "jarfile=@/path/to/flink-job.jar" http://127.0.0.1:8081/jars/upload
 
 # See all of the jar-ids which is associated with the uploaded jar files
-curl -X GET http://localhost:8081/jars/
+curl -X GET http://127.0.0.1:8081/jars/
 
 # Check the jar-id of your uploaded jar file
-curl -X GET http://localhost:8081/jars/ | jq -r '.files[].id' | grep flink-job.jar
+curl -X GET http://127.0.0.1:8081/jars/ | jq -r '.files[].id' | grep flink-job.jar
 
 # Run as Flink job by posting the jar-id of your uploaded jar file
-curl -X POST http://localhost:8081/jars/{jar-id}/run
+curl -X POST -H "Content-Type: application/json" -d '{"programArgs":"<your-params-to-execute-jar-file>"}' http://127.0.0.1:8081/jars/<your-jar-id>/run
 ```
 
 ### GUI on Web Dashboard
 
 1. Access the submit page of Apache Flink Dashboard.
 
-    URL: <http://localhost:8081/#/submit>
+    URL: <http://127.0.0.1:8081/#/submit>
 
 2. Click "Add New" and upload your jar file.
 
@@ -93,7 +94,7 @@ curl -X POST http://localhost:8081/jars/{jar-id}/run
 
 6. See the result of the submitted job execution.
 
-    URL: <http://localhost:8081/#/job/completed>
+    URL: <http://127.0.0.1:8081/#/job/completed>
 
 ## [Optional] Customize Flink Cluster
 
